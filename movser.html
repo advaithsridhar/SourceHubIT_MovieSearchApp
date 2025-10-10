@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" type="image/png" href="https://img.icons8.com/ios-filled/50/ef4444/film-reel--v2.png">
+    <title>Movie Explorer — Advanced</title>
+    <link rel="stylesheet" href="stylemov.css">
+</head>
+
+<body data-theme="dark">
+    <div class="wrap">
+
+        <header>
+            <div class="logo" id="logo">
+                <img src="https://img.icons8.com/ios-filled/50/ef4444/film-reel--v2.png" />
+                <div class="brand">
+                    <h1>Movie Explorer</h1>
+                    <p class="tag">Search · Favorites · Watch Later · Explore</p>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button id="themeToggle" class="ghost">🌙 Theme</button>
+                <button id="luckyBtn" class="pill">🎲 Lucky</button>
+                <button id="favToggle" class="ghost">⭐ Favorites <span id="favCount"
+                        style="color:gold;">0</span></button>
+                <button id="laterToggle" class="ghost">⏰ Later <span id="laterCount"
+                        style="color:#ffd166;">0</span></button>
+                <button id="recentToggle" class="ghost">👁 Recent</button>
+                <button id="mobileSearchBtn" class="ghost mobile-only">🔍</button>
+            </div>
+
+            <!-- Searchbar -->
+            <div class="searchbar" id="searchbar">
+                <!-- Row 1 -->
+                <div class="search-row">
+                    <input id="query" class="input" type="text" placeholder="Search movies...">
+                    <div id="suggestions"></div>
+                    <input id="year" class="input" type="number" min="1900" max="2099" placeholder="Year">
+                    <button id="filterToggle" class="ghost arrow-btn">▾</button>
+                </div>
+
+                <!-- Unified Filter Group -->
+                <div id="filterRow" class="filter-group filters-hidden">
+                    <select id="type" class="input">
+                        <option value="all">All</option>
+                        <option value="movie">Movie</option>
+                        <option value="series">Series</option>
+                        <option value="episode">Episode</option>
+                    </select>
+                    <select id="sort">
+                        <option value="">Sort By</option>
+                        <option value="year">Newest</option>
+                        <option value="rating">IMDb Rating</option>
+                        <option value="title">A–Z</option>
+                    </select>
+
+                    <select id="type">
+                        <option value="movie">Movies</option>
+                        <option value="series">Series</option>
+                        <option value="episode">Episodes</option>
+                    </select>
+
+                    <select id="country">
+                        <option value="">Any Country</option>
+                        <option value="US">USA</option>
+                        <option value="IN">India</option>
+                    </select>
+
+                    <select id="language">
+                        <option value="">Any Language</option>
+                        <option value="en">English</option>
+                        <option value="hi">Hindi</option>
+                    </select>
+
+                    <select id="genre">
+                        <option value="">Any Genre</option>
+                        <option>Action</option>
+                        <option>Drama</option>
+                        <option>Comedy</option>
+                    </select>
+
+                    <select id="rating">
+                        <option value="">Any Rating</option>
+                        <option value="7">7+</option>
+                        <option value="8">8+</option>
+                    </select>
+
+                    <select id="runtime">
+                        <option value="">Any Runtime</option>
+                        <option value="90">≤ 90 min</option>
+                        <option value="120">≤ 120 min</option>
+                    </select>
+                </div>
+
+            </div>
+            <button id="searchBtn" class="pill">Search</button>
+            <button id="clearBtn" class="ghost">Clear</button>
+        </header>
+
+        <!-- Drawers (Favorites, Later, Recent) -->
+        <div id="favDrawer" class="drawer">
+            <div class="draghandle"></div>
+            <h3>Favorites <button class="close-drawer">✕</button></h3>
+            <div id="favList"></div>
+        </div>
+
+        <div id="laterDrawer" class="drawer">
+            <div class="draghandle"></div>
+            <h3>Watch Later <button class="close-drawer">✕</button></h3>
+            <div id="laterList"></div>
+        </div>
+
+        <div id="recentDrawer" class="drawer">
+            <div class="draghandle"></div>
+            <h3>Recently Viewed <button class="close-drawer">✕</button></h3>
+            <div id="recentList"></div>
+        </div>
+
+        <!-- Results -->
+        <div id="results" class="grid"></div>
+        <div id="noResults" style="margin-top:18px">Loading movies…</div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="dialog">
+            <button id="closeModal" class="close-x">✕</button>
+            <div class="modal-content">
+                <!-- Poster side -->
+                <div class="poster-col">
+                    <img id="mPoster" />
+                    <button id="downloadPoster" class="pill small">⬇ Poster</button>
+                    <button id="modalCompare" class="pill small">⚖ Compare</button>
+                </div>
+
+                <!-- Info side -->
+                <div class="info-col">
+                    <h2 id="mTitle">Title</h2>
+                    <div id="mSub" class="sub"></div>
+                    <div id="mRatings" class="ratings"></div>
+                    <p id="mPlot" class="plot"></p>
+
+                    <h3>Box Office & Awards</h3>
+                    <div id="mExtras"></div>
+
+                    <h3>Cast</h3>
+                    <div id="mCast" class="cast"></div>
+
+                    <h3>Available On</h3>
+                    <div id="mProviders" class="providers"></div>
+
+                    <div class="actions">
+                        <button id="modalFav" class="pill">⭐ Favorites</button>
+                        <button id="modalLater" class="pill">⏰ Watch Later</button>
+                        <button id="trailerBtn" class="pill">▶ Trailer</button>
+                        <a id="openImdb" class="pill" target="_blank">IMDb</a>
+                    </div>
+                    <h3 id="trailerHeader" style="display:none;">Trailer</h3>
+                    <div id="trailerWrapper" class="trailer-wrapper" style="display:none;">
+                        <iframe id="mTrailerFrame" allowfullscreen
+                            style="width:100%; height:300px; border:none; border-radius:12px;"></iframe>
+                    </div>
+
+
+                    <h3>Similar Movies</h3>
+                    <div id="mSimilar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trailer Popup -->
+    <div id="trailerPopup" class="trailerPopup">
+        <button id="closeTrailer" class="closeTrailer">✕</button>
+        <iframe id="mTrailerFrame" allowfullscreen></iframe>
+    </div>
+
+    <div id="toasts" style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:9999;"></div>
+    <script src="scriptmov.js"></script>
+    <div id="themeIndicator"></div>
+
+    <footer>
+        <p>© 2025 Movie Explorer — Built with ❤️ for movie lovers</p>
+        <p>
+            <a href="#">About</a> |
+            <a href="#">Contact</a> |
+            <a href="#">GitHub</a>
+        </p>
+    </footer>
+    <!-- Compare Popup -->
+    <div id="comparePopup" class="modal">
+        <div class="dialog">
+            <button id="closeCompare" class="close-x">✕</button>
+            <h2>Compare Movies</h2>
+            <div id="compareTable"></div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
