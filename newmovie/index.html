@@ -1,0 +1,321 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A cinematic dashboard to search, save, compare, and explore movies.">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/ios-filled/50/ef4444/film-reel--v2.png">
+    <title>Movie Explorer Advanced</title>
+    <link rel="stylesheet" href="stylemov.css">
+</head>
+
+<body data-theme="dark">
+    <div class="page-shell">
+        <div class="ambient ambient-a"></div>
+        <div class="ambient ambient-b"></div>
+
+        <header class="topbar">
+            <button id="logo" class="brand-block" type="button" aria-label="Go to home">
+                <img src="https://img.icons8.com/ios-filled/50/ef4444/film-reel--v2.png" alt="Movie Explorer logo">
+                <div class="brand-copy">
+                    <span class="eyebrow">Cinematic dashboard</span>
+                    <h1>Movie Explorer</h1>
+                    <p>Search, compare, favorite, and plan your next watch.</p>
+                </div>
+            </button>
+
+            <div class="top-actions">
+                <button id="themeToggle" class="chip-btn" type="button">Theme</button>
+                <button id="luckyBtn" class="chip-btn" type="button">Lucky Pick</button>
+                <button id="favToggle" class="chip-btn" type="button">Favorites <span id="favCount">0</span></button>
+                <button id="laterToggle" class="chip-btn" type="button">Watch Later <span id="laterCount">0</span></button>
+                <button id="recentToggle" class="chip-btn" type="button">Recent</button>
+                <button id="mobileSearchBtn" class="chip-btn mobile-only" type="button" aria-label="Toggle search">Search</button>
+            </div>
+        </header>
+
+        <main class="content">
+            <section class="hero-panel">
+                <div class="hero-copy">
+                    <span class="eyebrow">Discover something worth watching</span>
+                    <h2>Find films faster, keep a shortlist, and compare titles side by side.</h2>
+                    <p>
+                        Use smart filters, instant suggestions, and detailed movie cards powered by OMDb, TMDb, and YouTube.
+                    </p>
+
+                    <div class="search-panel" id="searchbar">
+                        <div class="search-row">
+                            <label class="field field-query">
+                                <span class="sr-only">Search for a movie</span>
+                                <input id="query" class="input" type="text" placeholder="Search movies, series, episodes...">
+                                <div id="suggestions" class="suggestions" aria-live="polite"></div>
+                            </label>
+                            <label class="field field-year">
+                                <span class="sr-only">Year</span>
+                                <input id="year" class="input" type="number" min="1900" max="2099" placeholder="Year">
+                            </label>
+                            <button id="filterToggle" class="chip-btn icon-btn" type="button" aria-expanded="false">Filters</button>
+                        </div>
+
+                        <div id="filterRow" class="filter-grid filters-hidden">
+                            <label class="field">
+                                <span>Type</span>
+                                <select id="type" class="input">
+                                    <option value="all">All</option>
+                                    <option value="movie">Movie</option>
+                                    <option value="series">Series</option>
+                                    <option value="episode">Episode</option>
+                                </select>
+                            </label>
+
+                            <label class="field">
+                                <span>Sort</span>
+                                <select id="sort" class="input">
+                                    <option value="">Relevance</option>
+                                    <option value="year">Newest</option>
+                                    <option value="rating">IMDb Rating</option>
+                                    <option value="title">A to Z</option>
+                                </select>
+                            </label>
+
+                            <label class="field">
+                                <span>Country</span>
+                                <select id="country" class="input">
+                                    <option value="">Any Country</option>
+                                    <option value="USA">USA</option>
+                                    <option value="India">India</option>
+                                    <option value="United Kingdom">United Kingdom</option>
+                                    <option value="South Korea">South Korea</option>
+                                    <option value="Japan">Japan</option>
+                                </select>
+                            </label>
+
+                            <label class="field">
+                                <span>Language</span>
+                                <select id="language" class="input">
+                                    <option value="">Any Language</option>
+                                    <option value="English">English</option>
+                                    <option value="Hindi">Hindi</option>
+                                    <option value="Tamil">Tamil</option>
+                                    <option value="Korean">Korean</option>
+                                    <option value="Japanese">Japanese</option>
+                                </select>
+                            </label>
+
+                            <label class="field">
+                                <span>Genre</span>
+                                <select id="genre" class="input">
+                                    <option value="">Any Genre</option>
+                                    <option value="Action">Action</option>
+                                    <option value="Adventure">Adventure</option>
+                                    <option value="Animation">Animation</option>
+                                    <option value="Comedy">Comedy</option>
+                                    <option value="Crime">Crime</option>
+                                    <option value="Drama">Drama</option>
+                                    <option value="Fantasy">Fantasy</option>
+                                    <option value="Horror">Horror</option>
+                                    <option value="Romance">Romance</option>
+                                    <option value="Sci-Fi">Sci-Fi</option>
+                                    <option value="Thriller">Thriller</option>
+                                </select>
+                            </label>
+
+                            <label class="field">
+                                <span>Minimum IMDb</span>
+                                <select id="rating" class="input">
+                                    <option value="">Any Rating</option>
+                                    <option value="6">6+</option>
+                                    <option value="7">7+</option>
+                                    <option value="8">8+</option>
+                                    <option value="9">9+</option>
+                                </select>
+                            </label>
+
+                            <label class="field">
+                                <span>Runtime</span>
+                                <select id="runtime" class="input">
+                                    <option value="">Any Runtime</option>
+                                    <option value="90">Up to 90 min</option>
+                                    <option value="120">Up to 120 min</option>
+                                    <option value="150">Up to 150 min</option>
+                                    <option value="180">Up to 180 min</option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <div class="search-actions">
+                            <button id="searchBtn" class="primary-btn" type="button">Search</button>
+                            <button id="clearBtn" class="ghost-btn" type="button">Clear</button>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="hero-side">
+                    <div class="spotlight-card">
+                        <span class="eyebrow">Todayâ€™s mood</span>
+                        <h3 id="spotlightTitle">Loading spotlight...</h3>
+                        <p id="spotlightText">Curated picks will appear here once the page loads.</p>
+                        <button id="spotlightBtn" class="ghost-btn" type="button">Open Spotlight</button>
+                    </div>
+
+                    <div class="stats-grid">
+                        <article class="stat-card">
+                            <span>Favorites</span>
+                            <strong id="statFavs">0</strong>
+                            <p>Your top saved picks.</p>
+                        </article>
+                        <article class="stat-card">
+                            <span>Watch Later</span>
+                            <strong id="statLater">0</strong>
+                            <p>Queue up the next movie night.</p>
+                        </article>
+                        <article class="stat-card">
+                            <span>Recent</span>
+                            <strong id="statRecent">0</strong>
+                            <p>Jump back into titles you explored.</p>
+                        </article>
+                    </div>
+                </aside>
+            </section>
+
+            <section class="section-bar">
+                <div>
+                    <span class="eyebrow">Browse</span>
+                    <h3 id="resultsHeading">Featured picks</h3>
+                </div>
+                <p id="resultsMeta">A curated set of popular titles to start exploring.</p>
+            </section>
+
+            <section id="quickFilters" class="quick-filters" aria-label="Quick filters">
+                <button class="quick-pill is-active" type="button" data-query="">Featured</button>
+                <button class="quick-pill" type="button" data-query="Oscar winners">Oscar winners</button>
+                <button class="quick-pill" type="button" data-query="Sci-Fi">Sci-Fi</button>
+                <button class="quick-pill" type="button" data-query="Animated movies">Animated</button>
+                <button class="quick-pill" type="button" data-query="Thriller">Thriller</button>
+                <button class="quick-pill" type="button" data-query="Bollywood">Bollywood</button>
+            </section>
+
+            <div id="activeFilters" class="active-filters"></div>
+            <div id="results" class="results-grid"></div>
+            <div id="noResults" class="status-card">Loading movies...</div>
+        </main>
+
+        <aside id="favDrawer" class="drawer" aria-label="Favorites">
+            <div class="drawer-head">
+                <h3>Favorites</h3>
+                <button class="close-drawer" type="button">Close</button>
+            </div>
+            <div id="favList" class="drawer-list"></div>
+        </aside>
+
+        <aside id="laterDrawer" class="drawer" aria-label="Watch later">
+            <div class="drawer-head">
+                <h3>Watch Later</h3>
+                <button class="close-drawer" type="button">Close</button>
+            </div>
+            <div id="laterList" class="drawer-list"></div>
+        </aside>
+
+        <aside id="recentDrawer" class="drawer" aria-label="Recently viewed">
+            <div class="drawer-head">
+                <h3>Recently Viewed</h3>
+                <button class="close-drawer" type="button">Close</button>
+            </div>
+            <div id="recentList" class="drawer-list"></div>
+        </aside>
+
+        <div id="modal" class="modal" aria-hidden="true">
+            <div class="dialog">
+                <button id="closeModal" class="close-x" type="button" aria-label="Close details">&times;</button>
+
+                <div class="dialog-media">
+                    <img id="mPoster" alt="Movie poster">
+                    <div class="poster-actions">
+                        <button id="downloadPoster" class="primary-btn small-btn" type="button">Download Poster</button>
+                        <button id="modalCompare" class="ghost-btn small-btn" type="button">Add to Compare</button>
+                    </div>
+                </div>
+
+                <div class="dialog-copy">
+                    <div class="dialog-head">
+                        <div>
+                            <span class="eyebrow">Movie details</span>
+                            <h2 id="mTitle">Title</h2>
+                            <div id="mSub" class="subline"></div>
+                        </div>
+                        <div id="mRatings" class="ratings-row"></div>
+                    </div>
+
+                    <p id="mPlot" class="plot"></p>
+
+                    <div class="detail-grid">
+                        <section class="detail-card">
+                            <h3>Box Office and Awards</h3>
+                            <div id="mExtras"></div>
+                        </section>
+                        <section class="detail-card">
+                            <h3>Available On</h3>
+                            <div id="mProviders" class="providers"></div>
+                        </section>
+                    </div>
+
+                    <section class="detail-card">
+                        <h3>Cast</h3>
+                        <div id="mCast" class="cast-grid"></div>
+                    </section>
+
+                    <div class="modal-actions">
+                        <button id="modalFav" class="primary-btn" type="button">Add to Favorites</button>
+                        <button id="modalLater" class="ghost-btn" type="button">Save for Later</button>
+                        <button id="trailerBtn" class="ghost-btn" type="button">Play Trailer</button>
+                        <a id="openImdb" class="ghost-btn link-btn" target="_blank" rel="noopener noreferrer">Open IMDb</a>
+                    </div>
+
+                    <div id="trailerSection" class="detail-card trailer-card hidden">
+                        <h3>Trailer</h3>
+                        <iframe id="mTrailerFrame" title="Trailer" allowfullscreen></iframe>
+                    </div>
+
+                    <section class="detail-card">
+                        <h3>Similar Movies</h3>
+                        <div id="mSimilar" class="similar-grid"></div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <div id="comparePopup" class="modal" aria-hidden="true">
+            <div class="dialog compare-dialog">
+                <button id="closeCompare" class="close-x" type="button" aria-label="Close compare">&times;</button>
+                <div class="compare-head">
+                    <div>
+                        <span class="eyebrow">Head to head</span>
+                        <h2>Compare Movies</h2>
+                    </div>
+                    <button id="clearCompare" class="ghost-btn" type="button">Clear Compare</button>
+                </div>
+                <div id="compareTable" class="compare-wrap"></div>
+            </div>
+        </div>
+
+        <div id="toasts" class="toast-stack" aria-live="polite" aria-atomic="true"></div>
+        <div id="themeIndicator" class="theme-indicator"></div>
+
+        <footer class="footer">
+            <p>&copy; 2026 Movie Explorer. Built for movie lovers who want a sharper search and save experience.</p>
+            <p>
+                <a href="https://www.omdbapi.com/" target="_blank" rel="noopener noreferrer">OMDb</a>
+                <span>â€¢</span>
+                <a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer">TMDb</a>
+                <span>â€¢</span>
+                <a href="https://developers.google.com/youtube" target="_blank" rel="noopener noreferrer">YouTube Data API</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="scriptmov.js"></script>
+</body>
+
+</html>
+

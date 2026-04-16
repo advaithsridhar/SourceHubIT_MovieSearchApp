@@ -1,0 +1,111 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Movie details page for Movie Explorer.">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/ios-filled/50/ef4444/film-reel--v2.png">
+    <title>Movie Details - Movie Explorer</title>
+    <link rel="stylesheet" href="stylemov.css">
+</head>
+
+<body data-theme="dark">
+    <div class="page-shell">
+        <div class="ambient ambient-a"></div>
+        <div class="ambient ambient-b"></div>
+
+        <header class="topbar">
+            <a class="brand-block" href="index.html" aria-label="Back to Movie Explorer">
+                <img src="https://img.icons8.com/ios-filled/50/ef4444/film-reel--v2.png" alt="Movie Explorer logo">
+                <div class="brand-copy">
+                    <span class="eyebrow">Movie details</span>
+                    <h1>Movie Explorer</h1>
+                    <p>Back to search and discovery</p>
+                </div>
+            </a>
+
+            <div class="top-actions">
+                <a href="index.html" class="ghost-btn">Back to Home</a>
+            </div>
+        </header>
+
+        <main class="content">
+            <section id="movieStatus" class="status-card">Loading movie details...</section>
+
+            <section id="moviePage" class="movie-page hidden">
+                <div class="movie-page-media">
+                    <img id="moviePoster" class="movie-page-poster" alt="Movie poster">
+
+                    <section class="detail-card movie-actions-card">
+                        <div class="movie-actions">
+                            <button id="compareBtn" class="primary-btn" type="button">Compare</button>
+                            <button id="downloadPosterBtn" class="ghost-btn" type="button">Download Poster</button>
+                            <button id="favoriteBtn" class="ghost-btn" type="button" aria-pressed="false">Add to Favorites</button>
+                            <button id="watchlistBtn" class="ghost-btn" type="button" aria-pressed="false">Add to Watchlist</button>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="movie-page-copy">
+                    <div class="detail-card">
+                        <span class="eyebrow">Now showing</span>
+                        <h2 id="movieTitle">Title</h2>
+                        <p id="movieMeta" class="subline"></p>
+                        <p id="moviePlot" class="plot"></p>
+                    </div>
+
+                    <section class="detail-card">
+                        <h3>Box Office</h3>
+                        <div id="movieBoxOffice" class="movie-box-office subline"></div>
+                    </section>
+
+                    <section class="detail-card">
+                        <h3>Ratings</h3>
+                        <div id="movieRatings" class="ratings-list"></div>
+                    </section>
+
+                    <div class="media-links-grid">
+                        <section class="detail-card">
+                            <h3>Streaming Platforms</h3>
+                            <div id="movieProviders" class="providers"></div>
+                        </section>
+
+                        <a id="trailerLink" class="detail-card trailer-card-link hidden" href="#" target="_blank" rel="noopener noreferrer" aria-label="Watch trailer on YouTube">
+                            <span class="trailer-card-copy">
+                                <strong>Trailer</strong>
+                                <span class="subline">Watch on YouTube</span>
+                            </span>
+                            <span class="youtube-icon" aria-hidden="true"></span>
+                        </a>
+                    </div>
+
+                    <section class="detail-card">
+                        <h3>Top Cast</h3>
+                        <div id="movieCast" class="cast-grid"></div>
+                    </section>
+
+                    <section class="detail-card">
+                        <h3>Similar Movies</h3>
+                        <div id="movieSimilar" class="similar-grid"></div>
+                    </section>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>© 2026 Movie Explorer. Built for discovering, saving, and comparing movies.</p>
+            <p>
+                <a href="https://www.omdbapi.com/" target="_blank" rel="noopener noreferrer">OMDb</a>
+                <span>•</span>
+                <a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer">TMDb</a>
+                <span>•</span>
+                <a href="https://developers.google.com/youtube" target="_blank" rel="noopener noreferrer">YouTube Data API</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="movie.js"></script>
+</body>
+
+</html>
